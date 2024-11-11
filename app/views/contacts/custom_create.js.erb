@@ -1,0 +1,11 @@
+
+console.log("This is the custom_create.js.erb file running");
+
+Swal.fire({
+  title: 'Success!',
+  text: 'Thank you for reaching out!',
+  icon: 'success',
+  confirmButtonText: 'OK'
+}).then(() => {
+  window.location = '<%= root_path %>';  // Redirect to root after closing SweetAlert
+});

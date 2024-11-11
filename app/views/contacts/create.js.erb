@@ -1,0 +1,9 @@
+<% byebug %>
+<% if flash[:notice] %>
+  Swal.fire({
+    title: 'Success!',
+    text: '<%= flash[:notice] %>',
+    icon: 'success',
+    confirmButtonText: 'OK'
+  })
+<% end %>
