@@ -236,14 +236,148 @@
     </section>
   </div>
 </div>
+
+<div class="container p-lg-5">
+  <h2 class="fw-bold text-center">Design & Build Process</h2>
+  <div class="progress-bar py-4 step-wrapper">
+    <div class="progress-step">
+      <div class="step-count">1</div>
+      <div class="step-description">Book a meeting</div>
+    </div>
+    <div class="progress-step ">
+      <div class="step-count">2</div>
+      <div class="step-description">Space planning & Design Conceptualization</div>
+    </div>
+    <div class="progress-step">
+      <div class="step-count">3</div>
+      <div class="step-description">Cost Finalization</div>
+    </div>
+    <div class="progress-step">
+      <div class="step-count">4</div>
+      <div class="step-description">Site Excecution</div>
+    </div>
+    <div class="progress-step">
+      <div class="step-count">5</div>
+      <div class="step-description">Handover</div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid bg-light p-lg-5  p-3 text-center">
+  <div class="p-lg-5 m-3">
+    <h2 class="fw-bold">Connect with us</h2>
+    <p class="mb-4">Reach out on WhatsApp or give us a call for the best home design experience.</p>
+    
+    <button type="button" class="btn btn-custom-rounded  d-inline-flex align-items-center mx-2 my-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <i class="fas fa-phone fs-3 mx-2"></i> Call Now
+    </button>
+    <%= link_to 'https://chat.whatsapp.com/GPpTImXpCS934AgEnabWef', target: '_blank', class: 'btn btn-custom-rounded d-inline-flex align-items-center mx-2 my-2'  do %>
+      <i class="fab fa-whatsapp fs-3 mx-2"></i>
+      <span class="ml-2">Get in Touch with WhatsApp</span>
+    <% end %> 
+  </div>
+</div>
+<div class="text-white p-3" style="background-color: var(--primary-color);">
+  <div class="d-flex justify-content-between align-items-center">
+    <p>
+      © 2024
+      <u>IshanaInterio</u>
+      All Rights Reserved
+    </p>
+    <div class="icons">
+      <%= link_to 'https://chat.whatsapp.com/GPpTImXpCS934AgEnabWef', target: '_blank' do %>
+        <i class="fab fa-whatsapp fs-3 text-white mx-2"></i>
+      <% end %> 
+      <%= link_to 'https://www.linkedin.com/company/ishana-interio', target: '_blank' do %>
+        <i class="fab fa-linkedin fs-3 text-white mx-2"></i>
+      <% end %> 
+      <%= link_to 'https://www.instagram.com/ishana_interio/', target: '_blank' do %>
+        <i class="fab fa-instagram fs-3 text-white mx-2"></i>
+      <% end %> 
+    </div>
+  </div>
+
+</div> 
+<<<<<<< HEAD
+<div class="scrollTop" id="scrollToTop"> <i class="fa fa-arrow-up"></i></div>
+=======
+>>>>>>> e07df368e2bbf9e18c121cc11e4b96d8977dba39
+<!-- modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="p-4 rounded bg-white text-dark shadow" id="contact_modal_form">
+          <h3>Let's Connect</h3>
+          <p>Tell us some basic information, and our executive will get back to you.</p>
+        
+          <div class="mb-1">
+                  <label for="contact_email" class="form-label">Email</label>
+                  <input type="email" name="email" id="contact_modal_email" class="form-control form-control-sm" required
+                        placeholder="Enter your email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        title="Please enter a valid email address (e.g., example@example.com)">
+          </div>
+        
+          <!-- Name Field -->
+          <div class="mb-2">
+            <label for="contact_name" class="form-label">Name</label>
+            <input type="text" name="name" id="contact_modal_name" class="form-control form-control-sm" placeholder="Enter your name">
+          </div>
+      
+          <!-- Contact Number Field -->
+          <div class="my-2 input-group">
+            <span class="input-group-text" id="basic-addon1">+91</span>
+            <input type="number" name="contact" id="contact_modal_contact" class="form-control form-control-sm" required 
+            placeholder="Enter your 10-digit contact number" 
+            pattern="^\d{10}$" 
+            title="Please enter a valid 10-digit contact number">
+          </div>
+        
+          <!-- State Selection -->
+          <div class="input-group mb-2">
+            <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
+            <select name="state" id="contact_modal_state" class="form-select form-select-sm">
+              <option value="Choose...">Choose...</option>
+              <option value="One">One</option>
+              <option value="Two">Two</option>
+              <option value="Three">Three</option>
+            </select>
+          </div>
+      
+          <!-- City Selection -->
+          <div class="input-group mb-2">
+            <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
+            <select name="city" id="contact_modal_city" class="form-select form-select-sm">
+              <option value="Choose...">Choose...</option>
+              <option value="One">One</option>
+              <option value="Two">Two</option>
+              <option value="Three">Three</option>
+            </select>
+          </div>
+      
+          <!-- Submit Button -->
+          <div class="text-center mt-1 d-grid">
+            <button type="button" id="submit_modal_form" class="btn btn-custom">Submit</button>
+          </div>
+        </div>  
+    </div>
+  </div>
+</div>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded');
+function scrollToTop() {
+  console.log('helo');
+  window.scrollTo(0,0);
+}
+   
+      document.getElementById('scrollToTop').onclick = function() {
+        scrollToTop();
+      }; 
+ 
+   
     const submitButton = document.getElementById('submit_form');
     const form = document.getElementById('contact_form');
 
     // Get the CSRF token from the meta tag in the HTML <head>
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  
 
     submitButton.addEventListener('click', function(event) {
       event.preventDefault();  // Prevent the default form submission
@@ -317,5 +451,7 @@
         });
       });
     });
-  });
+
+  
+   
 </script>
