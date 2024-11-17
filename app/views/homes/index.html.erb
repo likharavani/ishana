@@ -237,69 +237,11 @@
   </div>
 </div>
 
-<div class="container p-lg-5">
-  <h2 class="fw-bold text-center">Design & Build Process</h2>
-  <div class="progress-bar py-4 step-wrapper">
-    <div class="progress-step">
-      <div class="step-count">1</div>
-      <div class="step-description">Book a meeting</div>
-    </div>
-    <div class="progress-step ">
-      <div class="step-count">2</div>
-      <div class="step-description">Space planning & Design Conceptualization</div>
-    </div>
-    <div class="progress-step">
-      <div class="step-count">3</div>
-      <div class="step-description">Cost Finalization</div>
-    </div>
-    <div class="progress-step">
-      <div class="step-count">4</div>
-      <div class="step-description">Site Excecution</div>
-    </div>
-    <div class="progress-step">
-      <div class="step-count">5</div>
-      <div class="step-description">Handover</div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid bg-light p-lg-5  p-3 text-center">
-  <div class="p-lg-5 m-3">
-    <h2 class="fw-bold">Connect with us</h2>
-    <p class="mb-4">Reach out on WhatsApp or give us a call for the best home design experience.</p>
-    
-    <button type="button" class="btn btn-custom-rounded  d-inline-flex align-items-center mx-2 my-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
-    <i class="fas fa-phone fs-3 mx-2"></i> Call Now
-    </button>
-    <%= link_to 'https://chat.whatsapp.com/GPpTImXpCS934AgEnabWef', target: '_blank', class: 'btn btn-custom-rounded d-inline-flex align-items-center mx-2 my-2'  do %>
-      <i class="fab fa-whatsapp fs-3 mx-2"></i>
-      <span class="ml-2">Get in Touch with WhatsApp</span>
-    <% end %> 
-  </div>
-</div>
-<div class="text-white p-3" style="background-color: var(--primary-color);">
-  <div class="d-flex justify-content-between align-items-center">
-    <p>
-      © 2024
-      <u>IshanaInterio</u>
-      All Rights Reserved
-    </p>
-    <div class="icons">
-      <%= link_to 'https://chat.whatsapp.com/GPpTImXpCS934AgEnabWef', target: '_blank' do %>
-        <i class="fab fa-whatsapp fs-3 text-white mx-2"></i>
-      <% end %> 
-      <%= link_to 'https://www.linkedin.com/company/ishana-interio', target: '_blank' do %>
-        <i class="fab fa-linkedin fs-3 text-white mx-2"></i>
-      <% end %> 
-      <%= link_to 'https://www.instagram.com/ishana_interio/', target: '_blank' do %>
-        <i class="fab fa-instagram fs-3 text-white mx-2"></i>
-      <% end %> 
-    </div>
-  </div>
-
-</div> 
+<%= render 'progress' %>
+<%= render 'contact_us' %>
 <div class="scrollTop" id="scrollToTop"> <i class="fa fa-arrow-up"></i></div>
-
+<%= render 'social_links' %>
+<%= render 'shared/footer' %>
 <!-- modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -361,95 +303,88 @@
   </div>
 </div>
 <script>
-function scrollToTop() {
-  console.log('helo');
-  window.scrollTo(0,0);
-}
+  function scrollToTop() {
+    console.log('helo');
+    window.scrollTo(0,0);
+  }
+    
+  document.getElementById('scrollToTop').onclick = function() {
+    scrollToTop();
+  }; 
    
-      document.getElementById('scrollToTop').onclick = function() {
-        scrollToTop();
-      }; 
- 
-   
-    const submitButton = document.getElementById('submit_form');
-    const form = document.getElementById('contact_form');
+  const submitButton = document.getElementById('submit_form');
+  const form = document.getElementById('contact_form');
 
-    // Get the CSRF token from the meta tag in the HTML <head>
-  
+  submitButton.addEventListener('click', function(event) {
+    event.preventDefault();  // Prevent the default form submission
 
-    submitButton.addEventListener('click', function(event) {
-      event.preventDefault();  // Prevent the default form submission
+    // Collect form data
+    const formData = new FormData();
+    formData.append('email', document.getElementById('contact_email').value);
+    formData.append('name', document.getElementById('contact_name').value);
+    formData.append('contact', document.getElementById('contact_contact').value);
+    formData.append('state', document.getElementById('contact_state').value);
+    formData.append('city', document.getElementById('contact_city').value);
 
-      // Collect form data
-      const formData = new FormData();
-      formData.append('email', document.getElementById('contact_email').value);
-      formData.append('name', document.getElementById('contact_name').value);
-      formData.append('contact', document.getElementById('contact_contact').value);
-      formData.append('state', document.getElementById('contact_state').value);
-      formData.append('city', document.getElementById('contact_city').value);
-
-      var emailInput = document.getElementById('contact_email');
-      var emailValue = emailInput.value;
-      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      
-      if (!emailPattern.test(emailValue)) {
-          alert("Please enter a valid email address.");
-          return;
-          event.preventDefault(); // Prevent form submission
-      }
-
-       // Contact number validation (only digits and exactly 10 digits)
-      var contactInput = document.getElementById('contact_contact');
-      var contactValue = contactInput.value;
-      var contactPattern = /^\d{10}$/;  // Pattern for exactly 10 digits
-
-      if (!contactPattern.test(contactValue)) {
-        // If contact number is invalid, show alert and stop further execution
-        alert("Please enter a valid 10-digit contact number.");
+    var emailInput = document.getElementById('contact_email');
+    var emailValue = emailInput.value;
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!emailPattern.test(emailValue)) {
+        alert("Please enter a valid email address.");
         return;
+        event.preventDefault(); // Prevent form submission
+    }
+
+      // Contact number validation (only digits and exactly 10 digits)
+    var contactInput = document.getElementById('contact_contact');
+    var contactValue = contactInput.value;
+    var contactPattern = /^\d{10}$/;  // Pattern for exactly 10 digits
+
+    if (!contactPattern.test(contactValue)) {
+      // If contact number is invalid, show alert and stop further execution
+      alert("Please enter a valid 10-digit contact number.");
+      return;
+    }
+    // Send AJAX request to the controller
+    fetch('/contacts/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json',  // Expecting JSON response from server
+        'X-CSRF-Token': csrfToken,   // Include the CSRF token in the headers
       }
-      // Send AJAX request to the controller
-      fetch('/contacts/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json',  // Expecting JSON response from server
-          'X-CSRF-Token': csrfToken,   // Include the CSRF token in the headers
-        }
-      })
-      .then(response => response.json())  // Parse the JSON response
-      .then(data => {
-        if (data.success) {
-          // If success, show SweetAlert
-          Swal.fire({
-            title: 'Success!',
-            text: data.message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          }).then(() => {
-            window.location = '/';  // Redirect to root after success
-          });
-        } else {
-          // If failure, show SweetAlert with error message
-          Swal.fire({
-            title: 'Error!',
-            text: data.message,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting the form:', error);
+    })
+    .then(response => response.json())  // Parse the JSON response
+    .then(data => {
+      if (data.success) {
+        // If success, show SweetAlert
+        Swal.fire({
+          title: 'Success!',
+          text: data.message,
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location = '/';  // Redirect to root after success
+        });
+      } else {
+        // If failure, show SweetAlert with error message
         Swal.fire({
           title: 'Error!',
-          text: `There was a problem: ${error.message || error.toString()}`,  // Print error message
+          text: data.message,
           icon: 'error',
           confirmButtonText: 'OK'
         });
+      }
+    })
+    .catch(error => {
+      console.error('Error submitting the form:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: `There was a problem: ${error.message || error.toString()}`,  // Print error message
+        icon: 'error',
+        confirmButtonText: 'OK'
       });
     });
-
-  
-   
+  });
 </script>

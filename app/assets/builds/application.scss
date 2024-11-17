@@ -28,6 +28,31 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: white;
   color: var(--primary-color);
 }
+.socialIcon{
+  position: fixed;
+  left: 1rem;
+  padding: 0.6rem 0rem;
+  transition: all 0.5s ease 5s;
+  z-index: 1000000;
+  color:white;
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  
+}
+.iconSize{
+  font-size: 2.2rem !important;
+}
+.whatsappIcon{
+  top: 22rem;
+}
+.instagramIcon{
+  top:26rem;
+}
+.linkedinIcon{
+  top: 30rem;
+}
 body{
   overflow-x: hidden !important;
   width:100%;
@@ -452,6 +477,20 @@ h2, h3 {
     font-size: 1rem;
     font-weight: 500;
     padding-top: 0;
+    }
+    .socialIcon{
+      left: 0;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 1 !important;
+    }
+    .iconSize{
+      font-size: 1rem !important;
+    }
+    .linkedinIcon{
+      top: 26.6rem;
+    }
+    .instagramIcon{
+      top: 24.3rem;
     }
   }
 :root,
