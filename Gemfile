@@ -72,3 +72,5 @@ end
 
 gem "cssbundling-rails", "~> 1.4"
 gem 'byebug'
+gem 'activeadmin'
+# gem 'error_highlight'
