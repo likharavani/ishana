@@ -238,6 +238,26 @@
 </div>
 
 <%= render 'progress' %>
+<div class="container p-4 ">
+  <h2 class="fw-bold text-center">Our Work</h2>
+  <div class="d-flex flex-wrap justify-content-center mt-5 align-items-center"> 
+      <% Project.all.each do |project| %>
+      <a href="<%= project_path(project.id) %>" class="single-portfolio" 
+      style="background-image: url(<%= url_for(project.images.last) %>);">
+        <div class="portfolio-content">
+          <span class="portfolio-title"><%= project.name %></span>
+          <span class="portfolio-description"><%= project.address %></span>
+          <button class="btn btn-light btn-sm mt-2 portfolio-button" >View More<button>  
+        </div>
+      </a>
+      <% end %>
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to '/', target: '_blank', class: 'btn btn-custom-rounded', id: 'hover-button' do %>
+      <span class="ml-2" id="hover-text">Want to see more of our work</span>
+    <% end %>
+  </div>
+</div>
 <%= render 'contact_us' %>
 <div class="scrollTop" id="scrollToTop"> <i class="fa fa-arrow-up"></i></div>
 <%= render 'social_links' %>

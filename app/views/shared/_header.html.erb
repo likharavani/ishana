@@ -1,16 +1,16 @@
-<nav class="container-fluid navbar navbar-expand-lg navbar-white bg-white fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">
+<nav class="container-fluid navbar navbar-expand-lg  fixed-top" id="mainNavbar">
+  <div class="container py-3">
+    <a class="navbar-brand" href="#" id="navbarBrand">
       <%= image_tag 'logo.jpg', style: 'height: 2rem; width: auto; margin-right: 1rem;' %>
       Ishana Interio
     </a>
     
-    <button type="button" class="btn btn-custom btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Book an Appointment
+    <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" id="navButton">
+      Book an Appointment
     </button>
-    
   </div>
 </nav>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -72,6 +72,39 @@
 </div>
 <script>
   
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.getElementById('mainNavbar');
+      const navbarBrand = document.getElementById('navbarBrand');
+      const navButton = document.getElementById('navButton');
+      const threshold = window.innerHeight * 0.9; // 90vh
+      navbar.classList.add('navbar-light'); // Remove light style
+      navbar.classList.add('bg-light'); // Remove light style
+      navButton.classList.add('btn-custom');
+
+      window.addEventListener('scroll', () => {
+        navbar.classList.remove('navbar-light'); // Remove light style
+        navbar.classList.remove('bg-light'); // Remove light style
+        navButton.classList.remove('btn-custom');
+
+        if (window.scrollY > threshold) {
+          navbar.classList.add('navbar-dark-scroll'); // Add dark style
+          navbar.classList.remove('navbar-light-scroll'); // Remove light style
+          
+          navbarBrand.classList.add('text-dark-scroll'); // Add dark button style
+          navbarBrand.classList.remove('text-light-scroll'); // Remove light button style
+          navButton.classList.add('btn-dark-scroll'); // Add dark button style
+          navButton.classList.remove('btn-light-scroll'); // Remove light button style
+        } else {
+          navbar.classList.add('navbar-light-scroll'); // Add light style
+          navbar.classList.remove('navbar-dark-scroll'); // Remove dark style
+          navbarBrand.classList.add('text-light-scroll'); // Add dark button style
+          navbarBrand.classList.remove('text-dark-scroll'); // Remove light button style
+          navButton.classList.add('btn-light-scroll '); // Add light button style
+          navButton.classList.remove('btn-dark-scroll'); // Remove dark button style
+        }
+      });
+    });
+
     // Get the CSRF token from the meta tag in the HTML <head>
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
