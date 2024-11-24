@@ -29,7 +29,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .btn-light-scroll {
-  background-color: black !important;
+  background-color: var(--primary-color) !important;
   color: white !important;
   border-color: transparent;
 }
@@ -444,7 +444,7 @@ h2, h3 {
       left: 50%;
       width: 50%;
     }
-  
+ 
     .step-count {
       background-color: var(--primary-color);
       height: 3.875rem; // 30px = 1.875rem
@@ -522,6 +522,14 @@ h2, h3 {
     .scrollTop{
       bottom: 7rem;
       right: 1rem;
+    }
+     
+    .navbar-brand{
+      font-size: 0.9rem !important;
+      
+    }
+    .navbar-brand > img{
+      margin-right: 0px !important;
     }
   }
   .wrapper{

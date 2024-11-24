@@ -74,3 +74,4 @@ gem "cssbundling-rails", "~> 1.4"
 gem 'byebug'
 gem 'activeadmin'
 # gem 'error_highlight'
+gem "city-state", "~> 1.1"
