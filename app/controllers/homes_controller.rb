@@ -1,13 +1,14 @@
 class HomesController < ApplicationController
 
   def index
-    @project = Project.all
-    @project_images = ProjectImage.all
-    @bg_image = ProjectImage.where(image_type: 2).first
-    @long = ProjectImage.where(image_type: 2).last
-    @states = Contact.new.states
-    @mid = ProjectImage.where(image_type: 1).first(3)
-    @last = ProjectImage.where(image_type: 0).first(2)
+    @projects = Project.all
+    @scroll_images = ProjectImage.where(image_type: 1)
+    @background = ProjectImage.where(image_type: 2).last
+    @grid_image = ProjectImage.where(image_type: 3)
+    @design_crave = ProjectImage.where(image_type: 4).last
+    @offer = ProjectImage.where(image_type: 5).last
+    @why_choose = ProjectImage.where(image_type: 6).last
+
     @cities = []
   end
 

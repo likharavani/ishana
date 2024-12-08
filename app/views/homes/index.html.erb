@@ -9,7 +9,7 @@
     }
   }
 </style>
-<div class="main-page text-white " style="padding-top: 7rem; background-image: url('<%= @bg_image.image_url if @bg_image %>');">
+<div class="main-page text-white " style="padding-top: 7rem; background-image: url('<%= @background.image_url if @background %>');">
   <div class="row container mx-auto p-4 justify-content-between">
     <div class="col-12 col-md-6 col-lg-7 text-white">
       <h2 class="fw-bold">Transform Your Space with Stunning Interiors</h2>
@@ -77,27 +77,29 @@
 </div>
 <div class="container">
   <div class="container">
+    <% if @grid_image.present? %>
     <!-- Stack the columns on mobile by making one full-width and the other half-width -->
     <div class="row">
-      <div class="col-md-8"><%= image_tag @project_images.fourth.image_url, class: "img-fluid my-4" %></div>
-      <div class="col-6 col-md-4 d-flex flex-column py-3"><%= image_tag @project_images.second.image_url, class: "img-fluid  my-2" %>
-        <%= image_tag @project_images.find(11).image_url, class: "img-fluid  my-4" %></div>
+      <div class="col-md-8"><%= image_tag @grid_image&.first&.image_url, class: "img-fluid my-4" %></div>
+      <div class="col-6 col-md-4 d-flex flex-column py-3"><%= image_tag @grid_image&.second&.image_url, class: "img-fluid  my-2" %>
+        <%= image_tag @grid_image&.third&.image_url, class: "img-fluid  my-4" %></div>
     </div>
   
     <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
     <div class="row">
-      <% @mid.each do |project_image| %>
-        <div class="col-6 col-md-4"><%= image_tag project_image.image_url, class: "img-fluid " %></div>
+      <% @grid_image.each do |project_image| %>
+        <div class="col-6 col-md-4"><%= image_tag project_image&.image_url, class: "img-fluid " %></div>
       <% end %>
     </div>
   
     <!-- Columns are always 50% wide, on mobile and desktop -->
     <div class="row">
-      <% @last.each do |project_image| %>
-        <div class="col-6"><%= image_tag project_image.image_url, class: "img-fluid my-4 " %></div>
+      <% @grid_image.each do |project_image| %>
+        <div class="col-6"><%= image_tag project_image&.image_url, class: "img-fluid my-4 " %></div>
       <% end %>
       
     </div>
+    <% end %>
   </div>
 </div>
 <%= render 'progress' %>
@@ -106,7 +108,9 @@
   <div class="row">
     <div class="col-12 col-md-6 col-lg-6">
       <div class="img-fluid">
-        <%= image_tag @bg_image.image_url, class: "img-fluid p-4" %>
+        <% if @design_crave.present? %>
+          <%= image_tag @design_crave.image_url, class: "img-fluid p-4" %>
+        <% end %>
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-6 text-dark d-flex align-items-center ">
@@ -155,7 +159,9 @@
     </div>
     <div class="col-12 col-md-6">
       <div class="img-fluid">
-        <%= image_tag @bg_image.image_url, class: "img-fluid p-4" %>
+        <% if @offer.present? %>
+          <%= image_tag @offer.image_url, class: "img-fluid p-4" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -165,7 +171,7 @@
   <h2 class="fw-bold text-center">Our Work</h2>
   <hr class="mx-auto underline_style" >
   <div class="responsive">
-    <% @project_images.each do |project_image| %>
+    <% @scroll_images.each do |project_image| %>
       <% if project_image.image_url %>
         <div style="width: 18rem; height: 50vh; margin: 2rem; overflow: hidden;">
           <%= image_tag project_image.image_url, class: "img-fluid p-2" %>
@@ -179,7 +185,8 @@
   <h2 class="fw-bold text-center">Our Delivered Projects</h2>
   <hr class="mx-auto underline_style" >
   <div class="d-flex flex-wrap justify-content-center mt-5 align-items-center"> 
-      <% @project.all.each do |project| %>
+    <% if @projects.present? %>
+      <% @projects.all.each do |project| %>
       <a href="<%= project_path(project.id) %>" class="single-portfolio" 
       style="background-image: url(<%= url_for(project.image_url) %>);">
         <div class="portfolio-content">
@@ -189,6 +196,7 @@
         </div>
       </a>
       <% end %>
+    <% end %>
   </div>
   <div class="d-flex justify-content-center my-4">
     <%= link_to '/', target: '_blank', class: 'btn btn-custom-rounded', id: 'hover-button' do %>
@@ -259,7 +267,9 @@
     </div>
     <div class="col-12 col-md-6">
       <div class="img-fluid">
-        <%= image_tag @bg_image.image_url, class: "img-fluid p-4" %>
+        <% @why_choose.present? %>
+          <%= image_tag @why_choose.image_url, class: "img-fluid p-4" %>
+        <% end %>
       </div>
     </div>
     
