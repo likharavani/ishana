@@ -23,37 +23,38 @@
             <label for="contact_name" class="form-label">Name</label>
             <input type="text" name="name" id="contact_modal_name" class="form-control form-control-sm" placeholder="Enter your name">
           </div>
-      
           <!-- Contact Number Field -->
           <div class="my-2 input-group">
             <span class="input-group-text" id="basic-addon1">+91</span>
-            <input type="number" name="contact" id="contact_modal_contact" class="form-control form-control-sm" required 
-            placeholder="Enter your 10-digit contact number" 
-            pattern="^\d{10}$" 
-            title="Please enter a valid 10-digit contact number">
+            <input type="text" name="contact" id="contact_modal_contact" class="form-control form-control-sm" required 
+                  placeholder="Enter your 10-digit contact number" 
+                  maxlength="10" 
+                  pattern="^\d{10}$" 
+                  title="Please enter exactly 10 digits"
+                  oninput="restrictInput(this)">
           </div>
+
         
-             <!-- State Selection -->
+       <!-- State Selection -->
         <div class="input-group mb-2">
           <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
-          <select name="state" id="contact_state" class="form-select form-select-sm">
+          <select name="state" class="contact_state form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @states.each do |state| %>
               <option value="<%= state %>"><%= state %></option>
             <% end %>
           </select>
         </div>
-        
         <!-- City Selection -->
         <div class="input-group mb-2">
           <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
-          <select name="city" id="contact_city" class="form-select form-select-sm">
+          <select name="city" class="contact_city form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @cities.each do |city| %>
               <option value="<%= city %>"><%= city %></option>
             <% end %>
           </select>
-        </div>
+        </div>     
       
           <!-- Submit Button -->
           <div class="text-center mt-1 d-grid">
@@ -64,6 +65,51 @@
   </div>
 </div>
 <script>
+  function restrictInput(input) {
+    // Ensure that only digits are entered
+    input.value = input.value.replace(/\D/g, '').slice(0, 10);
+  }
+  function fetchCities(event) {
+    const stateSelect = event.target; // The state dropdown that triggered the event
+
+    // Loop through all city dropdowns with class `contact_city`
+    const citySelects = document.querySelectorAll('.contact_city');
+
+    citySelects.forEach(function(citySelect) {
+      // Get the selected state
+      const state = stateSelect.value;
+
+      // If a valid state is selected (not "Choose...")
+      if (state !== 'Choose...') {
+        // Fetch cities for the selected state
+        fetch(`/get_cities?state=${state}`)
+          .then(response => response.json())
+          .then(data => {
+            // Reset the city dropdown and add a "Choose..." option
+            citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
+
+            // Populate the city dropdown with the fetched cities
+            data.cities.forEach(city => {
+              const option = document.createElement('option');
+              option.value = city;
+              option.textContent = city;
+              citySelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching cities:', error);
+          });
+      } else {
+        // Reset the city dropdown if no valid state is selected
+        citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
+      }
+    });
+  }
+
+  // Add the event listener to all state dropdowns
+  document.querySelectorAll('.contact_state').forEach(stateSelect => {
+    stateSelect.addEventListener('change', fetchCities);
+  });
   
     document.addEventListener('DOMContentLoaded', () => {
       const navbar = document.getElementById('mainNavbar');
@@ -119,15 +165,6 @@
       formData.append('state', document.getElementById('contact_modal_state').value);
       formData.append('city', document.getElementById('contact_modal_city').value);
 
-      var emailInput = document.getElementById('contact_modal_email');
-      var emailValue = emailInput.value;
-      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      
-      if (!emailPattern.test(emailValue)) {
-          alert("Please enter a valid email address.");
-          return;
-          event.preventDefault(); // Prevent form submission
-      }
 
        // Contact number validation (only digits and exactly 10 digits)
       var contactInput = document.getElementById('contact_modal_contact');

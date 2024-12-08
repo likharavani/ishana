@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
  :root {
-  --primary-color: #968062; /* Define your purple color here */
+  --primary-color: #382101; /* Define your purple color here */
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -98,7 +98,7 @@ body{
   width: 100%;
   position: relative;
   min-height: 60vh; 
-  background-image: url('A1.png'); 
+  // background-image: url('<%= @bg_image.image_url if @bg_image %>'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -115,8 +115,18 @@ body{
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
   z-index: 1;
 }
+.underline_style{
+  width: 60px; 
+  height: 4px; 
+  background-color: #ebaf62; 
+  border: 0;
+}
+.slick-arrow:before{
+  color: var(--primary-color) !important;
+ 
+}
 .row {
-  color: white;
+  color: rgb(0, 0, 0);
   position: relative; 
   z-index: 2;
 }
@@ -128,149 +138,6 @@ h2, h3 {
   font-weight: bold;
   /* text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);  */
 }
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes backwards-rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes scaling {
-  0% {
-    transform: scale(0.65) translateY(65px);
-  }
-  15% {
-    transform: scale(0.5) translateY(100px);
-  }
-  65% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(0.65) translateY(65px);
-  }
-}
-
-.rotation-container {
-  position: relative;
-  width: 9.3rem;
-  height: 9.3rem;
-  margin: 9rem auto;
-  transform: rotate(90deg);
-  animation: rotation 20s infinite linear;
-
-  &:hover {
-    animation-play-state: paused;
-
-    .item-container {
-      animation-play-state: paused;
-    }
-
-    .item {
-      animation-play-state: paused;
-    }
-  }
-
-  .item-container {
-    position: absolute;
-    animation: backwards-rotation 20s infinite linear;
-  }
-
-  .item-container-1 {
-    bottom: -40px; /* Adjusted position */
-    left: -140px; /* Adjusted position */
-  }
-
-  .item-container-2 {
-    top: -40px; /* Adjusted position */
-    left: -140px; /* Adjusted position */
-  }
-
-  .item-container-3 {
-    left: 30px; /* Adjusted position */
-    bottom: 145px;
-  }
-
-  .item-container-4 {
-    top: -40px; /* Adjusted position */
-    right: -140px; /* Adjusted position */
-  }
-
-  .item-container-5 {
-    bottom: -40px; /* Adjusted position */
-    right: -140px; /* Adjusted position */
-  }
-
-  .item-container-6 {
-    left: 30px; /* Adjusted position */
-    top: 145px;
-  }
-  .item {
-    display: flex; /* Added flex display for centering */
-    flex-direction: column; /* Align icon and text vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    width: 6rem;
-    height: 6rem;
-    border-radius: 12px;
-    background-color: var(--primary-color);
-    animation: scaling 20s infinite linear;
-    color: white; /* Set text color to white */
-    text-align: center; /* Center text horizontally */
-    font-weight: bold; /* Make text bold */
-    padding: 1rem; /* Add padding for better spacing */
-  }
-
-  .icon-styling {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  /* Animation delays */
-  .item-1 {
-    animation-delay: 0s;
-  }
-
-  .item-2 {
-    animation-delay: 2.5s;
-  }
-
-  .item-3 {
-    animation-delay: 5s;
-  }
-
-  .item-4 {
-    animation-delay: 7.5s;
-  }
-
-  .item-5 {
-    animation-delay: 10s;
-  }
-
-  .item-6 {
-    animation-delay: 12.5s;
-  }
-
-  .item-7 {
-    animation-delay: 15s;
-  }
-
-  .item-8 {
-    animation-delay: 17.5s;
-  }
-}
-/* new caousel css  */
 
 .btn-custom-outline{
   --bs-btn-color: var(--bs-purple);
@@ -433,6 +300,8 @@ h2, h3 {
       }
     }
   
+
+
     @media screen and (max-width: 640px) {
       &:first-of-type:before,
       &:last-of-type:after {
