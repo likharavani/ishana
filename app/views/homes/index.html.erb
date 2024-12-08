@@ -108,9 +108,9 @@
   <div class="row">
     <div class="col-12 col-md-6 col-lg-6">
       <div class="img-fluid">
-        <% if @design_crave.present? %>
+        <% if @design_crave&.image_url.present? %>
           <%= image_tag @design_crave.image_url, class: "img-fluid p-4" %>
-        <% end %>
+        <% end %>      
       </div>
     </div>
     <div class="col-12 col-md-6 col-lg-6 text-dark d-flex align-items-center ">
@@ -188,11 +188,11 @@
     <% if @projects.present? %>
       <% @projects.all.each do |project| %>
       <a href="<%= project_path(project.id) %>" class="single-portfolio" 
-      style="background-image: url(<%= url_for(project.image_url) %>);">
+      style="background-image: url('<%= project.image_url %>');">
         <div class="portfolio-content">
           <span class="portfolio-title"><%= project.name %></span>
           <span class="portfolio-description"><%= project.address %></span>
-          <button class="btn btn-light btn-sm mt-2 portfolio-button" >View More<button>  
+          <button class="btn btn-light btn-sm mt-2 portfolio-button" >View More</button>  
         </div>
       </a>
       <% end %>
@@ -399,10 +399,7 @@
 
   document.getElementById('scrollToTop').onclick = scrollToTop;
 
-  const submitButton = document.getElementById('submit_form');
-  const form = document.getElementById('contact_form');
-
-  submitButton.addEventListener('click', function(event) {
+  document.getElementById('submit_form').addEventListener('click', function (event) {
     event.preventDefault();
 
     const formData = new FormData();
@@ -412,10 +409,9 @@
     formData.append('city', document.getElementById('contact_city').value);
 
     const contactInput = document.getElementById('contact_contact');
-    const contactValue = contactInput.value;
     const contactPattern = /^\d{10}$/;
 
-    if (!contactPattern.test(contactValue)) {
+    if (!contactPattern.test(contactInput.value)) {
       alert("Please enter a valid 10-digit contact number.");
       return;
     }
@@ -428,34 +424,33 @@
         'X-CSRF-Token': csrfToken
       }
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        Swal.fire({
-          title: 'Success!',
-          text: data.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        }).then(() => {
-          window.location = '/';
-        });
-      } else {
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          Swal.fire({
+            title: 'Success!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            window.location = '/';
+          });
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      })
+      .catch(error => {
         Swal.fire({
           title: 'Error!',
-          text: data.message,
+          text: `There was a problem: ${error.message || error.toString()}`,
           icon: 'error',
           confirmButtonText: 'OK'
         });
-      }
-    })
-    .catch(error => {
-      Swal.fire({
-        title: 'Error!',
-        text: `There was a problem: ${error.message || error.toString()}`,
-        icon: 'error',
-        confirmButtonText: 'OK'
       });
-    });
   });
-
 </script>
