@@ -9,6 +9,7 @@ class HomesController < ApplicationController
     @offer = ProjectImage.where(image_type: 5).last
     @why_choose = ProjectImage.where(image_type: 6).last
 
+    @states = Contact.new.states
     @cities = []
   end
 
