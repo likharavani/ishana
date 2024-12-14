@@ -1,48 +1,4 @@
 <style>
-  .grid-item {
-    background-color: #f5e8ff;
-    padding-block-end: 2.5rem;
-    text-align: center;
-    display: grid;
-    justify-content: center;
-    padding-top: 2rem;
-    position: relative;
-  }
-
-  /* Estilo del contenedor del carrusel */
-  .carousel-container {
-    width: 100%;
-    padding: 3rem;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Contenido del carrusel */
-  .carousel-content {
-    display: flex;
-    animation: scroll 50s linear infinite;
-  }
-
-  /* Cada elemento del carrusel */
-  .carousel-item {
-    min-width: 200px;
-    height: 150px;
-    margin-right: 10px;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  /* Animación para el scroll automático */
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -51,88 +7,82 @@
       transform: translateX(-50%);
     }
   }
-
-  section {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    place-items: center;
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    opacity: 1;
-    mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0) 0%,
-      rgb(0, 0, 0) 12.5%,
-      rgb(0, 0, 0) 87.5%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    overflow: hidden;
-  }
-
 </style>
-<div class="main-page text-white " style="padding-top: 7rem; ">
+<div class="main-page text-white " style="padding-top: 7rem; background-image: url('<%= @background.image_url  if @background.present? %>');">
   <div class="row container mx-auto p-4 justify-content-between">
-    <div class="col-12 col-md-6 col-lg-7">
-      <h2 class="fw-bold">Bring home beautiful interiors that fit your budget</h2>
+    <div class="col-12 col-md-6 col-lg-7 text-white">
+      <h2 class="fw-bold">Transform Your Space with Stunning Interiors</h2>
       <p>
-        Experience unmatched quality & timely delivery with Livspace
+        Experience the perfect blend of style, functionality, and affordability with Ishana Interio. From modern designs to timeless classics, we bring your vision to life with unmatched precision and commitment.
       </p>
-    </div>
+    </div>    
     <div class="col-12 col-md-6 col-lg-4">
       <div class="p-4 rounded bg-white text-dark shadow" id="contact_form">
         <h3>Let's Connect</h3>
         <p>Tell us some basic information, and our executive will get back to you.</p>
-      
-        <!-- email Field 
-        <div class="mb-1">
-                <label for="contact_email" class="form-label">Email</label>
-                <input type="email" name="email" id="contact_email" class="form-control form-control-sm" required
-                      placeholder="Enter your email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                      title="Please enter a valid email address (e.g., example@example.com)">
-        </div>
-      -->
-      
+    
         <!-- Name Field -->
         <div class="mb-2">
-          <label for="contact_name" class="form-label">Name</label>
+          
           <input type="text" name="name" id="contact_name" class="form-control form-control-sm" placeholder="Enter your name">
         </div>
     
+        <div class="mb-1">       
+          <input type="email" name="email" id="contact_email" class="form-control form-control-sm" required
+                placeholder="Enter your email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Please enter a valid email address (e.g., example@example.com)">
+        </div>
+
         <!-- Contact Number Field -->
         <div class="my-2 input-group">
           <span class="input-group-text" id="basic-addon1">+91</span>
-          <input type="number" name="contact" id="contact_contact" class="form-control form-control-sm" required 
-          placeholder="Enter your 10-digit contact number" 
-          pattern="^\d{10}$" 
-          title="Please enter a valid 10-digit contact number">
+          <input type="text" name="contact" id="contact_contact" class="form-control form-control-sm" required 
+                placeholder="Enter your 10-digit contact number" 
+                maxlength="10" 
+                pattern="^\d{10}$" 
+                title="Please enter exactly 10 digits"
+                oninput="restrictInput(this)">
         </div>
-      
         <!-- State Selection -->
         <div class="input-group mb-2">
           <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
-          <select name="state" id="contact_state" class="form-select form-select-sm">
+          <select name="state" class="contact_state form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @states.each do |state| %>
               <option value="<%= state %>"><%= state %></option>
             <% end %>
           </select>
         </div>
-        
         <!-- City Selection -->
         <div class="input-group mb-2">
           <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
-          <select name="city" id="contact_city" class="form-select form-select-sm">
+          <select name="city" class="contact_city form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @cities.each do |city| %>
               <option value="<%= city %>"><%= city %></option>
             <% end %>
           </select>
+        </div>    
+        <div class="d-flex">
+          <div class="input-group mb-2 " style="margin-right: 0.2rem;">   
+            <select name="project_area" id="project_area" class="form-select form-select-sm">
+              <option value="">Project Area</option>
+              <option value="0-2000">0 - 2000 sq. ft</option>
+              <option value="2000-4000">2000 - 4000 sq. ft</option>
+              <option value="4000-6000">4000 -6000 sq. ft</option>
+              <option value="6000+">6000+ sq. ft</option>
+            </select>
+          </div>
+          <div class="input-group mb-2 ">
+            <select name="budget" id="budget" class="form-select form-select-sm">
+              <option value="">Budget</option>
+              <option value="30-40">30 - 40 lacs</option>
+              <option value="40-60">40 - 60 lacs</option>
+              <option value="60-80">60 - 80 lacs</option>
+              <option value="80+">80+ lacs</option>    
+            </select>
+          </div> 
         </div>
-        
         <!-- Submit Button -->
         <div class="text-center mt-1 d-grid">
           <button type="button" id="submit_form" class="btn btn-custom">Submit</button>
@@ -141,111 +91,215 @@
     </div>
   </div>
 </div>
-<!--about -->
-<div class="container my-5">
-  <div class="about-content p-2 ">
-    <h2 class="text-center my-4">
-      Why Choose us
-    </h2>
-    <hr class="mx-auto" style="width: 60px; height: 4px; background-color: #541eaa; border: 0;">
 
-    <p>
-      When you give your home the Livspace touch, you get both beauty and functionality. We employ state-of-the-art technology to ensure your home features a flawless look that lasts a very long time.
-      When you give your home the Livspace touch, you get both beauty and functionality. We employ state-of-the-art technology to ensure your home features a flawless look that lasts a very long time.
-      When you give your home the Livspace touch, you get both beauty and functionality. We employ state-of-the-art technology to ensure your home features a flawless look that lasts a very long time.
-    </p>
+<!--transform your space-->
+<div class="grid-item" id="projects">
+  <h2>Transforming Your Space</h2>
+  <hr class="mx-auto underline_style" >
+  <p>Look no further than Ishana Interior for end-to-end interior design services
+  </p>
+</div>
+<div class="container">
+  <div class="container">
+    <% if @grid_image.present? %>
+    <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+    <div class="row">
+      <div class="col-md-8"><%= image_tag @grid_image&.first&.image_url, class: "img-fluid my-4" %></div>
+      <div class="col-6 col-md-4 d-flex flex-column py-3"><%= image_tag @grid_image&.second&.image_url, class: "img-fluid  my-2" %>
+        <%= image_tag @grid_image&.third&.image_url, class: "img-fluid  my-4" %></div>
+    </div>
+  
+    <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+    <div class="row">
+      <% @grid_image.each do |project_image| %>
+        <div class="col-6 col-md-4"><%= image_tag project_image&.image_url, class: "img-fluid " %></div>
+      <% end %>
+    </div>
+  
+    <!-- Columns are always 50% wide, on mobile and desktop -->
+    <div class="row">
+      <% @grid_image.each do |project_image| %>
+        <div class="col-6"><%= image_tag project_image&.image_url, class: "img-fluid my-4 " %></div>
+      <% end %>
+      
+    </div>
+    <% end %>
   </div>
 </div>
-<!--caousel section-->
+<%= render 'progress' %>
+<!--The home design you crave-->
 <div class="container">
   <div class="row">
+    <div class="col-12 col-md-6 col-lg-6">
+      <div class="img-fluid">
+        <% if @design_crave&.image_url.present? %>
+          <%= image_tag @design_crave.image_url, class: "img-fluid p-4" %>
+        <% end %>      
+      </div>
+    </div>
     <div class="col-12 col-md-6 col-lg-6 text-dark d-flex align-items-center ">
       <div class="content">
         <h2 class="my-3">
           The home design you crave
         </h2>
-        <hr class="" style="width: 100px; height: 4px; background-color: #541eaa; border: 0;">
+        <hr class="underline_style" >
         <p>
           When you give your home the Livspace touch, you get both beauty and functionality. We employ state-of-the-art technology to ensure your home features a flawless look that lasts a very long time.
         </p>
       </div>
+    </div> 
+  </div>
+</div>
+<!-- what we offer -->
+<div class="container">
+  <div class="row">  
+    <div class="col-12 col-md-6 px-5 pt-5">
+      <div class="mx-4">
+        <h2>What we offer</h2>
+      <hr class="underline_style" >
+      <ul class="list-unstyled">
+        <li class="d-flex align-items-center mb-3">
+          <i class="fas fa-check-circle me-2 text-dark"></i> 
+          <span>100% Quality Assurance</span>
+        </li>
+        <li class="d-flex align-items-center mb-3">
+          <i class="fas fa-check-circle me-2 text-dark"></i> 
+          <span>Personalised Designs</span>
+        </li>
+        <li class="d-flex align-items-center mb-3">
+          <i class="fas fa-check-circle me-2 text-dark"></i> 
+          <span>Transparent Pricing</span>
+        </li>
+        <li class="d-flex align-items-center mb-3">
+          <i class="fas fa-check-circle me-2 text-dark"></i> 
+          <span>Dedicated Support Team</span>
+        </li>
+        <li class="d-flex align-items-center mb-3">
+          <i class="fas fa-check-circle me-2 text-dark"></i> 
+          <span>Durable Modular Furniture</span>
+        </li>
+      </ul>
+      </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-6">
-      <div class="rotation-container">
-        <div class="item-container item-container-1">
-          <a href="#" class="item text-center text-decoration-none item-1">100% Quality Assurance
-          </a>
-        </div>
-        <div class="item-container item-container-2">
-          <a href="#" class="item text-center text-decoration-none item-2">
-            Personalised designs
-          </a>
-        </div>
-        <div class="item-container item-container-3">
-          <a href="#" class="item text-center text-decoration-none item-3">
-            Transparent pricing
-          </a>
-        </div>
-        <div class="item-container item-container-4">
-          <a href="#" class="item text-center text-decoration-none item-4">
-            Dedicated Support Team
-          </a>
-        </div>
-        <div class="item-container item-container-5">
-          <a href="#" class="item text-center text-decoration-none item-5">
-            Durable Modular Furniture
-          </a>
-        </div>
-        <div class="item-container item-container-6">
-          <a href="#" class="item text-center text-decoration-none item-6">
-            Dedicated Support Team
-          </a>
-        </div>  
-    </div>
+    <div class="col-12 col-md-6">
+      <div class="img-fluid">
+        <% if @offer.present? %>
+          <%= image_tag @offer.image_url, class: "img-fluid p-4" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
-
-<div class="grid-item" id="projects">
-  <h2>Transforming Your Space</h2>
-  <hr class="mx-auto" style="width: 60px; height: 4px; background-color: #541eaa; border: 0;">
-  <p>Look no further than Ishana Interior for end-to-end interior design services
-  </p>
-</div>
-<div class="responsive">
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"> <%= image_tag 'A1.png', class: "img-fluid p-4" %></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A2.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A3.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'V1.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A1.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'V3.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A1.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A2.png' , class: "img-fluid p-4"%></div>
-  <div style="width: 18rem; height: 50vh; margin: 2rem;"><%= image_tag 'A3.png' , class: "img-fluid p-4"%></div>
-</div>
-
-
-<%= render 'progress' %>
-<div class="container p-4 ">
+<!--our work-->
+<div class="container p-3 ">
   <h2 class="fw-bold text-center">Our Work</h2>
+  <hr class="mx-auto underline_style" >
+  <div class="responsive">
+    <% @scroll_images.each do |project_image| %>
+      <% if project_image.image_url %>
+        <div style="width: 18rem; height: 50vh; margin: 2rem; overflow: hidden;">
+          <%= image_tag project_image.image_url, class: "img-fluid p-2" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<!-- our projects-->
+<div class="container">
+  <h2 class="fw-bold text-center">Our Delivered Projects</h2>
+  <hr class="mx-auto underline_style" >
   <div class="d-flex flex-wrap justify-content-center mt-5 align-items-center"> 
-      <% Project.all.each do |project| %>
+    <% if @projects.present? %>
+      <% @projects.all.each do |project| %>
       <a href="<%= project_path(project.id) %>" class="single-portfolio" 
-      style="background-image: url(<%= url_for(project.images.last) %>);">
+      style="background-image: url('<%= project.image_url %>');">
         <div class="portfolio-content">
           <span class="portfolio-title"><%= project.name %></span>
           <span class="portfolio-description"><%= project.address %></span>
-          <button class="btn btn-light btn-sm mt-2 portfolio-button" >View More<button>  
+          <button class="btn btn-light btn-sm mt-2 portfolio-button" >View More</button>  
         </div>
       </a>
       <% end %>
+    <% end %>
   </div>
-  <div class="d-flex justify-content-center mt-4">
+  <div class="d-flex justify-content-center my-4">
     <%= link_to '/', target: '_blank', class: 'btn btn-custom-rounded', id: 'hover-button' do %>
       <span class="ml-2" id="hover-text">Want to see more of our work</span>
     <% end %>
   </div>
+
 </div>
+<!--Services We Provide-->
+<div class="container-fluid text-center p-4 grid-item">
+  <div class="container">
+    <h2>Services We Provide</h2>
+    <hr class="mx-auto underline_style" >
+    <p>Look no further than Ishana Interior for end-to-end interior design services</p>
+    <div class="d-flex flex-md-nowrap justify-content-center align-items-center flex-wrap p-3">
+      <div class="card m-1 shadow border-0" style="width: 15rem;">
+        <div class="card-body">
+          <%= image_tag 'icons/icon1.png', alt: 'Icon 1' %>
+          <p>Architectural Services
+          </p>
+        </div>
+      </div>
+      <div class="card m-1 shadow border-0" style="width: 15rem;">
+        <div class="card-body">
+          <%= image_tag 'icons/icon2.png', alt: 'Icon 1' %>
+          <p>Interior Designing
+          </p>
+        </div>
+      </div>
+      <div class="card m-1 shadow border-0" style="width: 15rem;">
+        <div class="card-body">
+          <%= image_tag 'icons/icon3.png', alt: 'Icon 1' %>
+          <p>Custom Furniture
+          </p>
+        </div>
+      </div>
+      <div class="card m-1 shadow border-0" style="width: 15rem;">
+        <div class="card-body">
+          <%= image_tag 'icons/icon4.png', alt: 'Icon 1' %>
+          <p>Design & Build
+          </p>
+        </div>
+      </div>
+      <div class="card m-1 shadow border-0" style="width: 15rem;">
+        <div class="card-body">
+          <%= image_tag 'icons/icon5.png', alt: 'Icon 1' %>
+          <p>Turnkey Soutions
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--why choose us-->
+<div class="container my-5">
+  <div class="row p-2 ">
+    <div class="col-12 col-md-6">
+      <h2 class=" my-4">
+        Why Choose us
+      </h2>
+      <hr class="underline_style" >
+  
+      <p>
+        At <strong>Ishana Interio</strong>, we understand that your home is a reflection of your personality. When you choose us, you’re not just getting a beautifully designed space — you’re getting a perfect balance of <strong>beauty</strong> and <strong>functionality.</strong>
+        <br/><br/>
+        We leverage <strong>state-of-the-art technology</strong> to ensure that every corner of your home is not only visually striking but also durable and practical. Our expert team is dedicated to creating designs that are timeless and long-lasting, ensuring that your home looks flawless for years to come.
+      </p>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="img-fluid">
+        <% if @why_choose.present? %>
+          <%= image_tag @why_choose.image_url, class: "img-fluid p-4" %>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
 <%= render 'contact_us' %>
 <div class="scrollTop" id="scrollToTop"> <i class="fa fa-arrow-up"></i></div>
 <%= render 'social_links' %>
@@ -265,26 +319,26 @@
           </div>
         
           <!-- State Selection -->
-        <div class="input-group mb-2">
-          <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
-          <select name="state" id="contact_state" class="form-select form-select-sm">
-            <option value="Choose...">Choose...</option>
-            <% @states.each do |state| %>
-              <option value="<%= state %>"><%= state %></option>
-            <% end %>
-          </select>
-        </div>
-        
-        <!-- City Selection -->
-        <div class="input-group mb-2">
-          <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
-          <select name="city" id="contact_city" class="form-select form-select-sm">
-            <option value="Choose...">Choose...</option>
-            <% @cities.each do |city| %>
-              <option value="<%= city %>"><%= city %></option>
-            <% end %>
-          </select>
-        </div>
+          <div class="input-group mb-2">
+            <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
+            <select name="state" id="contact_state" class="form-select form-select-sm">
+              <option value="Choose...">Choose...</option>
+              <% @states.each do |state| %>
+                <option value="<%= state %>"><%= state %></option>
+              <% end %>
+            </select>
+          </div>
+          
+          <!-- City Selection -->
+          <div class="input-group mb-2">
+            <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
+            <select name="city" id="contact_city" class="form-select form-select-sm">
+              <option value="Choose...">Choose...</option>
+              <% @cities.each do |city| %>
+                <option value="<%= city %>"><%= city %></option>
+              <% end %>
+            </select>
+          </div>
 
           <!-- Submit Button -->
           <div class="text-center mt-1 d-grid">
@@ -297,20 +351,23 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-
 <script>
+  function restrictInput(input) {
+    input.value = input.value.replace(/\D/g, '').slice(0, 10);
+  }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const stateSelect = document.getElementById('contact_state');
-    const citySelect = document.getElementById('contact_city');
-    stateSelect.addEventListener('change', function () {
+  function fetchCities(event) {
+    const stateSelect = event.target;
+    const citySelects = document.querySelectorAll('.contact_city');
+
+    citySelects.forEach(function(citySelect) {
       const state = stateSelect.value;
 
       if (state !== 'Choose...') {
         fetch(`/get_cities?state=${state}`)
           .then(response => response.json())
           .then(data => {
-            citySelect.innerHTML = '<option value="Choose...">Choose...</option>';   
+            citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
             data.cities.forEach(city => {
               const option = document.createElement('option');
               option.value = city;
@@ -318,23 +375,24 @@
               citySelect.appendChild(option);
             });
           })
-          .catch(error => {
-            console.error('Error fetching cities:', error);
-          });
+          .catch(error => console.error('Error fetching cities:', error));
       } else {
-        
         citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
       }
     });
-  });
+  }
 
-  $(document).ready(function(){
+  document.querySelectorAll('.contact_state').forEach(stateSelect => {
+  stateSelect.addEventListener('change', fetchCities);
+});
+
+  $(document).ready(function() {
     $('.responsive').slick({
       centerMode: true,
       centerPadding: '60px',
       slidesToShow: 3,
       autoplay: true,
-      autoplaySpeed: 100,
+      autoplaySpeed: 600,
       infinite: true,
       responsive: [
         {
@@ -359,78 +417,78 @@
     });
   });
 
-	
   function scrollToTop() {
-    console.log('helo');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
-    
-  document.getElementById('scrollToTop').onclick = function() {
-    scrollToTop();
-  }; 
-   
-  const submitButton = document.getElementById('submit_form');
-  const form = document.getElementById('contact_form');
 
-  submitButton.addEventListener('click', function(event) {
-    event.preventDefault();  // Prevent the default form submission
+  document.getElementById('scrollToTop').onclick = scrollToTop;
 
-    // Collect form data
+  document.getElementById('submit_form').addEventListener('click', function (event) {
+    event.preventDefault();
+
     const formData = new FormData();
     formData.append('name', document.getElementById('contact_name').value);
     formData.append('contact', document.getElementById('contact_contact').value);
-    formData.append('state', document.getElementById('contact_state').value);
-    formData.append('city', document.getElementById('contact_city').value);
+    formData.append('state', document.getElementsByClassName('contact_state')[0].value);
+    formData.append('city', document.getElementsByClassName('contact_city')[0].value);
+    formData.append('email', document.getElementById('contact_email').value);
+    formData.append('budget', document.getElementById('budget').value);
+    formData.append('project_area', document.getElementById('project_area').value);
 
-      // Contact number validation (only digits and exactly 10 digits)
-    var contactInput = document.getElementById('contact_contact');
-    var contactValue = contactInput.value;
-    var contactPattern = /^\d{10}$/;  // Pattern for exactly 10 digits
 
-    if (!contactPattern.test(contactValue)) {
-      // If contact number is invalid, show alert and stop further execution
+    var emailInput = document.getElementById('contact_email');
+    var emailValue = emailInput.value;
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!emailPattern.test(emailValue)) {
+        alert("Please enter a valid email address.");
+        return;
+        event.preventDefault(); // Prevent form submission
+    }
+
+    const contactInput = document.getElementById('contact_contact');
+    const contactPattern = /^\d{10}$/;
+
+    if (!contactPattern.test(contactInput.value)) {
       alert("Please enter a valid 10-digit contact number.");
       return;
     }
-    // Send AJAX request to the controller
+
     fetch('/contacts/', {
       method: 'POST',
       body: formData,
       headers: {
-        'Accept': 'application/json',  // Expecting JSON response from server
-        'X-CSRF-Token': csrfToken,   // Include the CSRF token in the headers
+        'Accept': 'application/json',
+        'X-CSRF-Token': csrfToken
       }
     })
-    .then(response => response.json())  // Parse the JSON response
-    .then(data => {
-      if (data.success) {
-        // If success, show SweetAlert
-        Swal.fire({
-          title: 'Success!',
-          text: data.message,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        }).then(() => {
-          window.location = '/';  // Redirect to root after success
-        });
-      } else {
-        // If failure, show SweetAlert with error message
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          Swal.fire({
+            title: 'Success!',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            window.location = '/';
+          });
+        } else {
+          Swal.fire({
+            title: 'Error!',
+            text: data.message,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      })
+      .catch(error => {
         Swal.fire({
           title: 'Error!',
-          text: data.message,
+          text: `There was a problem: ${error.message || error.toString()}`,
           icon: 'error',
           confirmButtonText: 'OK'
         });
-      }
-    })
-    .catch(error => {
-      console.error('Error submitting the form:', error);
-      Swal.fire({
-        title: 'Error!',
-        text: `There was a problem: ${error.message || error.toString()}`,  // Print error message
-        icon: 'error',
-        confirmButtonText: 'OK'
       });
-    });
   });
 </script>

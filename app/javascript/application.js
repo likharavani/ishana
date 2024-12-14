@@ -5,3 +5,6 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import * as bootstrap from "bootstrap"
+import "slick-carousel/slick/slick.min";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";

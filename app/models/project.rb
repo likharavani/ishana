@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
-  has_many_attached :images
+  include ImageUploader::Attachment(:image)
 
+  has_many :project_images, dependent: :destroy
   validates :name, :address,  presence: true
   validates :description, presence: true
   

@@ -3,7 +3,8 @@
     <div class="card mb-3 shadow bg-white p-4" style="max-width: 100%; border: none">
       <div class="row g-0">
         <div class="col-md-4">
-          <%= image_tag 'A1.png', class: 'img-fluid rounded-start', alt: '...' %>
+         
+          <%= image_tag @project.image_url, class: 'img-fluid rounded-start', alt: '...' %>
         </div>
         <div class="col-md-8">
           <div class="card-body text-dark d-flex flex-column justify-content-center ">
@@ -16,19 +17,19 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5 p-4 ">
-    <div class="row  bg-white justify-content-center">
-      <% if @project.images.attached? %>
-        <% @project.images.each do |image| %>
-          <div class="col-md-6 p-4 d-flex justify-content-center">
-            <div class="card bg-dark text-white" style="width: 100%; border: none">
-              <%= image_tag image, class: 'card-img' %>
+    <div class="container mt-4 p-4 ">
+      <div class="row  bg-white justify-content-center">
+        <% if @project.project_images.present? %>
+          <% @project.project_images.each do |image| %>
+            <div class="col-md-6 p-3 d-flex justify-content-center">
+              <div class="card bg-dark text-white" style="width: 100%; border: none">
+                <%= image_tag image.image_url, class: 'card-img' %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
-  </div>
   
   </div>
 </div>

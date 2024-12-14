@@ -4,7 +4,8 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(email: params[:email], name: params[:name], contact: params[:contact], city: params[:city], state: params[:state])
+    byebug
+    @contact = Contact.new(email: params[:email], name: params[:name], contact: params[:contact], city: params[:city], state: params[:state], budget: params[:budget], project_area: params[:project_area])
     if @contact.save
       render json: { success: true, message: 'Thank you for reaching out!' }
     else

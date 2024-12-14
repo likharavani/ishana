@@ -20,40 +20,65 @@
         
           <!-- Name Field -->
           <div class="mb-2">
-            <label for="contact_name" class="form-label">Name</label>
             <input type="text" name="name" id="contact_modal_name" class="form-control form-control-sm" placeholder="Enter your name">
           </div>
-      
+           <div class="mb-1">       
+          <input type="email" name="email" id="contact_email" class="form-control form-control-sm" required
+                placeholder="Enter your email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+              title="Please enter a valid email address (e.g., example@example.com)">
+        </div>
           <!-- Contact Number Field -->
           <div class="my-2 input-group">
             <span class="input-group-text" id="basic-addon1">+91</span>
-            <input type="number" name="contact" id="contact_modal_contact" class="form-control form-control-sm" required 
-            placeholder="Enter your 10-digit contact number" 
-            pattern="^\d{10}$" 
-            title="Please enter a valid 10-digit contact number">
+            <input type="text" name="contact" id="contact_modal_contact" class="form-control form-control-sm" required 
+                  placeholder="Enter your 10-digit contact number" 
+                  maxlength="10" 
+                  pattern="^\d{10}$" 
+                  title="Please enter exactly 10 digits"
+                  oninput="restrictInput(this)">
           </div>
+
         
-             <!-- State Selection -->
+       <!-- State Selection -->
         <div class="input-group mb-2">
-          <label for="contact_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
-          <select name="state" id="contact_state" class="form-select form-select-sm">
+          <label for="contact_modal_state" class="input-group-text" style="line-height: 0.5rem;">State</label>
+          <select name="state" class="contact_modal_state form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @states.each do |state| %>
               <option value="<%= state %>"><%= state %></option>
             <% end %>
           </select>
         </div>
-        
         <!-- City Selection -->
         <div class="input-group mb-2">
-          <label for="contact_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
-          <select name="city" id="contact_city" class="form-select form-select-sm">
+          <label for="contact_modal_city" class="input-group-text" style="line-height: 0.5rem;">City</label>
+          <select name="city" class="contact_modal_city form-select form-select-sm">
             <option value="Choose...">Choose...</option>
             <% @cities.each do |city| %>
               <option value="<%= city %>"><%= city %></option>
             <% end %>
           </select>
-        </div>
+        </div> 
+         <div class="d-flex">
+          <div class="input-group mb-2 " style="margin-right: 0.2rem;">   
+            <select name="project_area_modal" id="project_area_modal" class="form-select form-select-sm">
+              <option value="">Project Area</option>
+              <option value="0-2000">0 - 2000 sq. ft</option>
+              <option value="2000-4000">2000 - 4000 sq. ft</option>
+              <option value="4000-6000">4000 -6000 sq. ft</option>
+              <option value="6000+">6000+ sq. ft</option>
+            </select>
+          </div>
+          <div class="input-group mb-2 ">
+            <select name="budget_modal" id="budget_modal" class="form-select form-select-sm">
+              <option value="">Budget</option>
+              <option value="30-40">30 - 40 lacs</option>
+              <option value="40-60">40 - 60 lacs</option>
+              <option value="60-80">60 - 80 lacs</option>
+              <option value="80+">80+ lacs</option>    
+            </select>
+          </div> 
+        </div>    
       
           <!-- Submit Button -->
           <div class="text-center mt-1 d-grid">
@@ -64,6 +89,51 @@
   </div>
 </div>
 <script>
+  function restrictInput(input) {
+    // Ensure that only digits are entered
+    input.value = input.value.replace(/\D/g, '').slice(0, 10);
+  }
+  function fetchCities(event) {
+    const stateSelect = event.target; // The state dropdown that triggered the event
+
+    // Loop through all city dropdowns with class `contact_city`
+    const citySelects = document.querySelectorAll('.contact_modal_city');
+
+    citySelects.forEach(function(citySelect) {
+      // Get the selected state
+      const state = stateSelect.value;
+
+      // If a valid state is selected (not "Choose...")
+      if (state !== 'Choose...') {
+        // Fetch cities for the selected state
+        fetch(`/get_cities?state=${state}`)
+          .then(response => response.json())
+          .then(data => {
+            // Reset the city dropdown and add a "Choose..." option
+            citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
+
+            // Populate the city dropdown with the fetched cities
+            data.cities.forEach(city => {
+              const option = document.createElement('option');
+              option.value = city;
+              option.textContent = city;
+              citySelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching cities:', error);
+          });
+      } else {
+        // Reset the city dropdown if no valid state is selected
+        citySelect.innerHTML = '<option value="Choose...">Choose...</option>';
+      }
+    });
+  }
+
+  // Add the event listener to all state dropdowns
+  document.querySelectorAll('.contact_modal_state').forEach(stateSelect => {
+    stateSelect.addEventListener('change', fetchCities);
+  });
   
     document.addEventListener('DOMContentLoaded', () => {
       const navbar = document.getElementById('mainNavbar');
@@ -113,13 +183,16 @@
 
       // Collect form data
       const formData = new FormData();
-      formData.append('email', document.getElementById('contact_modal_email').value);
       formData.append('name', document.getElementById('contact_modal_name').value);
       formData.append('contact', document.getElementById('contact_modal_contact').value);
-      formData.append('state', document.getElementById('contact_modal_state').value);
-      formData.append('city', document.getElementById('contact_modal_city').value);
+      formData.append('state', document.getElementsByClassName('contact_modal_state')[0].value);
+      formData.append('city', document.getElementsByClassName('contact_modal_city')[0].value);
+      formData.append('email', document.getElementById('contact_email').value);
+      formData.append('budget', document.getElementById('budget_modal').value);
+      formData.append('project_area', document.getElementById('project_area_modal').value);
 
-      var emailInput = document.getElementById('contact_modal_email');
+
+      var emailInput = document.getElementById('contact_email');
       var emailValue = emailInput.value;
       var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       

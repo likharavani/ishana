@@ -3,6 +3,11 @@
 //= link A3.png
 //= link V1.png
 //= link V3.png
+//= link icons/icon1.png
+//= link icons/icon2.png
+//= link icons/icon3.png
+//= link icons/icon4.png
+//= link icons/icon5.png
 //= link logo.jpg
 //= link application.css
 //= link application.js
