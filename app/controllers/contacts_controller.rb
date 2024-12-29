@@ -5,11 +5,19 @@ class ContactsController < ApplicationController
 
   def create
     byebug
-    @contact = Contact.new(email: params[:email], name: params[:name], contact: params[:contact], city: params[:city], state: params[:state], budget: params[:budget], project_area: params[:project_area])
+    @contact = Contact.new(contact_params)
+  
     if @contact.save
       render json: { success: true, message: 'Thank you for reaching out!' }
     else
-      render json: { success: false, message: @contact.errors.full_messages.join(', ') }
+      render json: { success: false, message: @contact.errors.full_messages.to_sentence }
     end
   end
+  
+  private
+  
+  def contact_params
+    params.permit(:email, :name, :contact, :city, :state, :budget, :project_area)
+  end
+  
 end

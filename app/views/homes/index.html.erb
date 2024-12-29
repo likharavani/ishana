@@ -27,11 +27,10 @@
           <input type="text" name="name" id="contact_name" class="form-control form-control-sm" placeholder="Enter your name">
         </div>
     
-        <div class="mb-1">       
-          <input type="email" name="email" id="contact_email" class="form-control form-control-sm" required
-                placeholder="Enter your email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-              title="Please enter a valid email address (e.g., example@example.com)">
+       <div class="mb-1">       
+         <input type="text" name="email" id="email" class="form-control form-control-sm" placeholder="Enter your email">
         </div>
+
 
         <!-- Contact Number Field -->
         <div class="my-2 input-group">
@@ -431,20 +430,13 @@
     formData.append('contact', document.getElementById('contact_contact').value);
     formData.append('state', document.getElementsByClassName('contact_state')[0].value);
     formData.append('city', document.getElementsByClassName('contact_city')[0].value);
-    formData.append('email', document.getElementById('contact_email').value);
+    formData.append('email', document.getElementById('email').value);
     formData.append('budget', document.getElementById('budget').value);
     formData.append('project_area', document.getElementById('project_area').value);
 
+    const emailInput = document.getElementById('email');
+    console.log("Email value:", emailInput.value); // Debugging
 
-    var emailInput = document.getElementById('contact_email');
-    var emailValue = emailInput.value;
-    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
-    if (!emailPattern.test(emailValue)) {
-        alert("Please enter a valid email address.");
-        return;
-        event.preventDefault(); // Prevent form submission
-    }
 
     const contactInput = document.getElementById('contact_contact');
     const contactPattern = /^\d{10}$/;
