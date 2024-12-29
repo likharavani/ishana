@@ -19,7 +19,6 @@ class Contact < ApplicationRecord
   private
 
   def send_welcome_notification
-    byebug
     NotificationsMailer.welcome_email(self).deliver_now
   end
 end

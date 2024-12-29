@@ -14,7 +14,6 @@ class HomesController < ApplicationController
   end
 
   def get_cities
-    # byebug
     state_name = params[:state]
     all_states = CS.states(:in)
     state_key = all_states.key(state_name) 

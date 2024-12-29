@@ -4,7 +4,6 @@ class ContactsController < ApplicationController
   end
 
   def create
-    byebug
     @contact = Contact.new(contact_params)
   
     if @contact.save
