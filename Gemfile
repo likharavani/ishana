@@ -1,12 +1,11 @@
 source "https://rubygems.org"
 
 ruby "3.1.0"
-
+gem 'error_highlight', '>= 0.4.0'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4", ">= 7.1.4.1"
 gem 'sassc-rails'
 gem 'bootstrap', '~> 5.0.2'
-gem "cssbundling-rails", "~> 1.4"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -56,7 +55,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
+  gem 'letter_opener'
   gem 'dotenv-rails'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -71,7 +70,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "cssbundling-rails", "~> 1.4"
+
 gem 'byebug'
 gem 'activeadmin'
 # gem 'error_highlight'
